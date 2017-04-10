@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AD340App</string>
+    <string name="my_title">HW1: My Bio</string>
+    <string name="my_name">Ilsa Coleman</string>
+    <string name="my_bio">Prostate cancer researcher at the Fred Hutch;
+                            aspiring software developer.  I recently
+                            learned how terrifying it is to teach your 15
+                            year old to drive. When I\'m not in the passenger
+                            seat I enjoy running, music, and gardens.
+                            Fun fact: My parents are marine biologists who named
+                            a tunicate after my son Alex (<i>Trididemnum alexi</i>).
+    </string>
+</resources>
