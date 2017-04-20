@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">AD340App</string>
-    <string name="my_title">HW1: My Bio</string>
+    <string name="my_title">Contact Me</string>
     <string name="my_name">Ilsa Coleman</string>
+    <string name="tulip_description">Family photo at Skagit Valley tulips</string>
     <string name="my_bio">Prostate cancer researcher at the Fred Hutch;
                             aspiring software developer.  I recently
                             learned how terrifying it is to teach your 15
@@ -10,4 +11,6 @@
                             Fun fact: My parents are marine biologists who named
                             a new species after my son Alex (<i>Trididemnum alexi</i>).
     </string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
 </resources>
