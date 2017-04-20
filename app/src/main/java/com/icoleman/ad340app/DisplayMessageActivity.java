@@ -1,23 +1,31 @@
 package com.icoleman.ad340app;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 import android.util.Log;
 
-public class MainActivity extends AppCompatActivity {
+import static com.icoleman.ad340app.MainActivity.EXTRA_MESSAGE;
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-    public static final String EXTRA_MESSAGE = "com.icoleman.ad340app.MESSAGE";
+
+public class DisplayMessageActivity extends AppCompatActivity {
+    private static final String TAG = DisplayMessageActivity.class.getSimpleName();
 
     /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_display_message);
+
+        // Get the Intent that started this activity and extract the string
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(EXTRA_MESSAGE);
+
+        // Capture the layout's TextView and set the string as its text
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText(message);
     }
 
     /** Called when the activity is about to become visible. */
@@ -55,17 +63,4 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy()");
     }
 
-    /** Called when the user taps the Send button */
-    public void sendMessage(View view) {
-        try {
-            Intent intent = new Intent(this, DisplayMessageActivity.class);
-            EditText editText = (EditText) findViewById(R.id.editText);
-            String message = editText.getText().toString();
-            intent.putExtra(EXTRA_MESSAGE, message);
-            startActivity(intent);
-        } catch (Exception e) {
-            Log.d(TAG, "sendMessage()", e);
-        }
-
-    }
 }
