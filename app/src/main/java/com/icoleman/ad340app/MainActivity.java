@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.util.Log;
+import android.widget.GridLayout;
+import android.widget.ListAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy()");
     }
 
-    /** Called when the user taps the Send button */
+    /** Called when the user taps the "Send" button */
     public void sendMessage(View view) {
         try {
             Intent intent = new Intent(this, DisplayMessageActivity.class);
@@ -65,6 +69,24 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } catch (Exception e) {
             Log.d(TAG, "sendMessage()", e);
+        }
+
+    }
+
+    /** Called when user taps any of the "list" buttons (except "Contacts") */
+    public void toast(View view) {
+        Toast.makeText(MainActivity.this, "No lists to display",
+                Toast.LENGTH_SHORT).show();
+
+    }
+
+    /** Called when the user taps the "Contact" button */
+    public void getContacts(View view) {
+        try {
+            Intent intent = new Intent(this, DisplayContactsActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.d(TAG, "getContacts()", e);
         }
 
     }
