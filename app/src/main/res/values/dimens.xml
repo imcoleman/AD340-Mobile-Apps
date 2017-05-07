@@ -2,5 +2,7 @@
 <resources>
     <dimen name="font_size_1">30sp</dimen>
     <dimen name="font_size_2">16sp</dimen>
+    <dimen name="font_size_3">24sp</dimen>
     <dimen name="activity_vertical_margin">1sp</dimen>
+    <dimen name="fab_margin">16sp</dimen>
 </resources>
