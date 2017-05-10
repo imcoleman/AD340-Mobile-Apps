@@ -1,9 +1,10 @@
 package com.icoleman.ad340app;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -30,15 +30,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class DisplayContactsActivity extends AppCompatActivity {
     private static final String TAG = DisplayContactsActivity.class.getSimpleName();
+    // URL for data to display
     private static final String ENDPOINT = "http://icoleman.icoolshow.net/ad340Files/contactsData.json";
-    private RequestQueue requestQueue;
     private Gson gson;
     private List<Data> contacts;
     private List<Data> contact_strs;
@@ -46,27 +45,27 @@ public class DisplayContactsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_display_contacts);
-
-        /** perform network request to load the data */
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gson = gsonBuilder.create();
-        fetchPosts();
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gson = gsonBuilder.create();
         contact_strs = new ArrayList<>();
 
+        // Get Data
+        fetchPosts();
     }
 
     /** retrieve the JSON as a String which can then be parsed and deserialized into instances of the Data class  */
     private void fetchPosts() {
         StringRequest request = new StringRequest(Request.Method.GET, ENDPOINT, onPostsLoaded, onPostsError);
-        requestQueue.add(request);
+        // Set the tag on the request.
+        request.setTag(TAG);
+        // Add the request to the RequestQueue.
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
     private final Response.Listener<String> onPostsLoaded = new Response.Listener<String>() {
@@ -88,6 +87,17 @@ public class DisplayContactsActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         }
     };
+
+    // Check network connection
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
 
     // Error handling for Volley network connection
     private final Response.ErrorListener onPostsError = new Response.ErrorListener() {
