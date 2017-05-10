@@ -1,5 +1,6 @@
 package com.icoleman.ad340app;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -15,28 +16,112 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DisplayContactsActivity extends AppCompatActivity {
     private static final String TAG = DisplayContactsActivity.class.getSimpleName();
+    private static final String ENDPOINT = "http://icoleman.icoolshow.net/ad340Files/contactsData.json";
+    private RequestQueue requestQueue;
+    private Gson gson;
+    private List<Data> contacts;
+    private List<Data> contact_strs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_contacts);
+
+        /** perform network request to load the data */
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gson = gsonBuilder.create();
+        fetchPosts();
+
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        List<Data> data = fill_with_data();
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        Recycler_View_Adapter adapter = new Recycler_View_Adapter(data, getApplication());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        contact_strs = new ArrayList<>();
 
     }
+
+    /** retrieve the JSON as a String which can then be parsed and deserialized into instances of the Data class  */
+    private void fetchPosts() {
+        StringRequest request = new StringRequest(Request.Method.GET, ENDPOINT, onPostsLoaded, onPostsError);
+        requestQueue.add(request);
+    }
+
+    private final Response.Listener<String> onPostsLoaded = new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            contacts = Arrays.asList(gson.fromJson(response, Data[].class));
+            Log.i("DisplayContactsActivity", contacts.size() + " contacts loaded.");
+            for (Data contact : contacts) {
+                // add items to list
+                contact_strs.add(new Data(contact.name, contact.phone));
+                Log.i("DisplayContactsActivity", contact.name + ": " + contact.phone);
+            }
+            Log.i("DisplayContactsActivity", contact_strs.size() + " contacts loaded.");
+
+            // display contacts using RecyclerView
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+            Recycler_View_Adapter adapter = new Recycler_View_Adapter(contact_strs, getApplication());
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        }
+    };
+
+    // Error handling for Volley network connection
+    private final Response.ErrorListener onPostsError = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            String message;
+            Log.e("DisplayContactsActivity", error.toString());
+            if (error instanceof NetworkError) {
+                message = "Cannot connect to Internet...Please check your connection.";
+                Toast.makeText(DisplayContactsActivity.this, message,
+                        Toast.LENGTH_SHORT).show();
+            } else if (error instanceof ServerError) {
+                message = "The data could not be found. Please try again later.";
+                Toast.makeText(DisplayContactsActivity.this, message,
+                        Toast.LENGTH_SHORT).show();
+            } else if (error instanceof AuthFailureError) {
+                message = "Cannot connect to Internet...Please check your connection.";
+                Toast.makeText(DisplayContactsActivity.this, message,
+                        Toast.LENGTH_SHORT).show();
+            } else if (error instanceof ParseError) {
+                message = "The data could not be found. Please try again later.";
+                Toast.makeText(DisplayContactsActivity.this, message,
+                        Toast.LENGTH_SHORT).show();
+            } else if (error instanceof NoConnectionError) {
+                message = "Cannot connect to Internet...Please check your connection.";
+                Toast.makeText(DisplayContactsActivity.this, message,
+                        Toast.LENGTH_SHORT).show();
+            } else if (error instanceof TimeoutError) {
+                message = "Connection TimeOut...Please check your internet connection.";
+                Toast.makeText(DisplayContactsActivity.this, message,
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     /** Creates menu items in toolbar. */
     @Override
@@ -54,114 +139,6 @@ public class DisplayContactsActivity extends AppCompatActivity {
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
         return true;
-    }
-
-    public List<Data> fill_with_data() {
-
-        List<Data> data = new ArrayList<>();
-
-        data.add(new Data("Alika Carey", "(886) 553-8836"));
-        data.add(new Data("Alisa Trevino", "(131) 615-8532"));
-        data.add(new Data("Amal Rollins", "(279) 221-4269"));
-        data.add(new Data("Astra Farrell", "(467) 414-1067"));
-        data.add(new Data("Aubrey Nolan", "(241) 548-4204"));
-        data.add(new Data("Ayanna Nichols", "(145) 128-0439"));
-        data.add(new Data("Beck Wooten", "(322) 521-4045"));
-        data.add(new Data("Benedict Wilder", "(467) 347-0218"));
-        data.add(new Data("Brenden Blanchard", "(492) 694-6460"));
-        data.add(new Data("Brynn Hart", "(169) 807-9369"));
-        data.add(new Data("Burton Lawrence", "(193) 973-2479"));
-        data.add(new Data("Cairo Martin", "(218) 313-3221"));
-        data.add(new Data("Carla Mccall", "(835) 839-9518"));
-        data.add(new Data("Carlos Jordan", "(890) 903-5231"));
-        data.add(new Data("Casey Vinson", "(670) 826-4704"));
-        data.add(new Data("Chava Blankenship", "(227) 653-4691"));
-        data.add(new Data("Chester Franco", "(688) 783-7793"));
-        data.add(new Data("Cole Wong", "(977) 150-7743"));
-        data.add(new Data("Colton Olson", "(841) 316-3553"));
-        data.add(new Data("Courtney Olson", "(973) 699-9418"));
-        data.add(new Data("Dahlia Jones", "(687) 265-1644"));
-        data.add(new Data("Debra Trujillo", "(442) 157-6842"));
-        data.add(new Data("Dorian Lowery", "(889) 890-2220"));
-        data.add(new Data("Dylan Zimmerman", "(533) 550-7339"));
-        data.add(new Data("Emerson Moon", "(913) 233-9680"));
-        data.add(new Data("Ferris Blanchard", "(191) 344-1222"));
-        data.add(new Data("Fleur Sanders", "(964) 130-5023"));
-        data.add(new Data("Gareth Le", "(444) 565-8048"));
-        data.add(new Data("Giacomo Douglas", "(964) 877-9606"));
-        data.add(new Data("Gray Davidson", "(959) 702-7811"));
-        data.add(new Data("Gwendolyn Stanley", "(614) 823-3857"));
-        data.add(new Data("Hammett Martinez", "(299) 206-7956"));
-        data.add(new Data("Ignacia Holloway", "(378) 446-8718"));
-        data.add(new Data("India Dickson", "(496) 921-4716"));
-        data.add(new Data("Isabella Jacobs", "(801) 399-8954"));
-        data.add(new Data("Jakeem Hahn", "(678) 531-3767"));
-        data.add(new Data("Jonah Landry", "(364) 220-0536"));
-        data.add(new Data("Kaitlin Bennett", "(879) 280-0844"));
-        data.add(new Data("Kamal Neal", "(279) 972-0629"));
-        data.add(new Data("Kareem Sanders", "(992) 418-3055"));
-        data.add(new Data("Karly Freeman", "(584) 191-5764"));
-        data.add(new Data("Kessie Barr", "(746) 918-8417"));
-        data.add(new Data("Lacy Landry", "(665) 519-9461"));
-        data.add(new Data("Laith Wood", "(844) 215-6086"));
-        data.add(new Data("Lance Dawson", "(550) 572-2372"));
-        data.add(new Data("Laura Hayes", "(850) 615-7853"));
-        data.add(new Data("Laura Hurley", "(293) 940-2454"));
-        data.add(new Data("Laurel Reed", "(960) 347-6588"));
-        data.add(new Data("Lester Wiggins", "(816) 665-5813"));
-        data.add(new Data("Lila Gay", "(739) 915-9351"));
-        data.add(new Data("Lucas Knight", "(910) 689-7505"));
-        data.add(new Data("Madaline Nichols", "(223) 248-3927"));
-        data.add(new Data("Madeson Hurley", "(810) 688-6444"));
-        data.add(new Data("Maggy Ball", "(524) 104-5860"));
-        data.add(new Data("Marah Larson", "(260) 557-9995"));
-        data.add(new Data("Marshall Monroe", "(210) 358-7849"));
-        data.add(new Data("Maryam Leach", "(474) 432-8218"));
-        data.add(new Data("Melodie Blair", "(221) 666-0226"));
-        data.add(new Data("Miriam Garcia", "(672) 472-8097"));
-        data.add(new Data("Nerea Solis", "(503) 979-1929"));
-        data.add(new Data("Nicholas Zamora", "(787) 921-9582"));
-        data.add(new Data("Nina Witt", "(677) 336-3423"));
-        data.add(new Data("Nissim Harrell", "(975) 614-9065"));
-        data.add(new Data("Odessa Holloway", "(558) 660-4757"));
-        data.add(new Data("Otto Rocha", "(855) 218-3551"));
-        data.add(new Data("Penelope Howell", "(104) 122-1485"));
-        data.add(new Data("Penelope Sandoval", "(444) 775-6532"));
-        data.add(new Data("Petra Cline", "(770) 907-4341"));
-        data.add(new Data("Phyllis Kane", "(489) 255-3383"));
-        data.add(new Data("Quintessa Anderson", "(312) 203-0099"));
-        data.add(new Data("Rana Cruz", "(449) 628-3798"));
-        data.add(new Data("Raymond Dalton", "(964) 332-9477"));
-        data.add(new Data("Reese Clements", "(785) 633-8631"));
-        data.add(new Data("Rhiannon Noble", "(591) 550-8222"));
-        data.add(new Data("Rinah Massey", "(890) 801-8065"));
-        data.add(new Data("Rogan Dodson", "(256) 821-0263"));
-        data.add(new Data("Ross Hutchinson", "(992) 856-4054"));
-        data.add(new Data("Ruby George", "(859) 764-7296"));
-        data.add(new Data("Ryder Irwin", "(893) 260-1224"));
-        data.add(new Data("Sharon Mcbride", "(111) 721-1209"));
-        data.add(new Data("Sheila Mcconnell", "(675) 260-1015"));
-        data.add(new Data("Shellie Lester", "(744) 503-5125"));
-        data.add(new Data("Skyler Santiago", "(630) 806-8410"));
-        data.add(new Data("Solomon Rios", "(451) 939-0769"));
-        data.add(new Data("Sophia Watson", "(954) 883-7848"));
-        data.add(new Data("Suki Monroe", "(656) 187-1267"));
-        data.add(new Data("Taylor Ballard", "(198) 768-6433"));
-        data.add(new Data("Tyler Vinson", "(108) 882-5275"));
-        data.add(new Data("Uma Collins", "(268) 340-8851"));
-        data.add(new Data("Velma Gutierrez", "(148) 679-3049"));
-        data.add(new Data("Vera Cook", "(875) 609-6511"));
-        data.add(new Data("Victor Gentry", "(922) 414-1835"));
-        data.add(new Data("Vincent Houston", "(436) 944-5495"));
-        data.add(new Data("Vivien Freeman", "(938) 829-7002"));
-        data.add(new Data("Xander Faulkner", "(366) 846-3141"));
-        data.add(new Data("Xander Huffman", "(276) 674-1140"));
-        data.add(new Data("Xerxes Riley", "(512) 715-8832"));
-        data.add(new Data("Xerxes Ward", "(896) 755-8137"));
-        data.add(new Data("Yuri Cross", "(741) 182-7575"));
-        data.add(new Data("Yvette Beard", "(430) 913-9262"));
-
-        return data;
     }
 
     /**

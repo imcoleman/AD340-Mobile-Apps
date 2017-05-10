@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import static com.icoleman.ad340app.MainActivity.EXTRA_MESSAGE;
 
-
 public class DisplayMessageActivity extends AppCompatActivity {
     private static final String TAG = DisplayMessageActivity.class.getSimpleName();
 
