@@ -5,13 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import com.android.volley.toolbox.ImageLoader;
 import java.util.Collections;
 import java.util.List;
 
 public class Recycler_View_Adapter extends RecyclerView.Adapter<View_Holder> {
 
     List<Data> list = Collections.emptyList();
+    private ImageLoader imageLoader;
     Context context;
 
     public Recycler_View_Adapter(List<Data> list, Context context) {
@@ -32,6 +33,10 @@ public class Recycler_View_Adapter extends RecyclerView.Adapter<View_Holder> {
     public void onBindViewHolder(View_Holder holder, int position) {
 
         //Use the provided View Holder on the onCreateViewHolder method to populate the current row on the RecyclerView
+        imageLoader = MySingleton.getInstance(context).getImageLoader();
+        imageLoader.get(list.get(position).img_url, ImageLoader.getImageListener(holder.image,
+                        R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
+        holder.image.setImageUrl(list.get(position).img_url, imageLoader);
         holder.name.setText(list.get(position).name);
         holder.phone.setText(list.get(position).phone);
     }
