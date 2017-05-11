@@ -21,13 +21,11 @@ import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ import java.util.List;
 public class DisplayContactsActivity extends AppCompatActivity {
     private static final String TAG = DisplayContactsActivity.class.getSimpleName();
     // URL for data to display
-    private static final String ENDPOINT = "http://icoleman.icoolshow.net/ad340Files/contactsData.json";
+    private static final String ENDPOINT = "http://icoleman.icoolshow.net/ad340Files/contactsDataImgs.json";
     private Gson gson;
     private List<Data> contacts;
     private List<Data> contact_strs;
@@ -51,12 +49,21 @@ public class DisplayContactsActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gson = gsonBuilder.create();
-        contact_strs = new ArrayList<>();
+        // If connected, retrieve and display data
+        if (isOnline()) {
 
-        // Get Data
-        fetchPosts();
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gson = gsonBuilder.create();
+            contact_strs = new ArrayList<>();
+
+            // Get Data
+            fetchPosts();
+
+        } else {
+            String message = "Cannot connect to internet...Please check your connection.";
+            Toast.makeText(DisplayContactsActivity.this, message,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     /** retrieve the JSON as a String which can then be parsed and deserialized into instances of the Data class  */
@@ -75,7 +82,7 @@ public class DisplayContactsActivity extends AppCompatActivity {
             Log.i("DisplayContactsActivity", contacts.size() + " contacts loaded.");
             for (Data contact : contacts) {
                 // add items to list
-                contact_strs.add(new Data(contact.name, contact.phone));
+                contact_strs.add(new Data(contact.img_url, contact.name, contact.phone));
                 Log.i("DisplayContactsActivity", contact.name + ": " + contact.phone);
             }
             Log.i("DisplayContactsActivity", contact_strs.size() + " contacts loaded.");
