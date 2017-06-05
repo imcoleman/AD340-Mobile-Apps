@@ -11,6 +11,12 @@
         android:icon="@drawable/ic_search_white_24dp" />
 
     <item
+        android:id="@+id/menu_map"
+        android:title="@string/map"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_my_location_white_24px" />
+
+    <item
         android:id="@+id/menu_contacts"
         android:title="@string/contacts"
         app:showAsAction="ifRoom"
