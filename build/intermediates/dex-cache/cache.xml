@@ -21,12 +21,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Ilsa\.android\build-cache\b60d7d4d81cbf949676bfc2a3fb60c095743641b\output\jars\classes.jar"
+        jar="C:\Users\Ilsa\.android\build-cache\2a1701f3dd445358b904d036007a63a7e8964747\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
-        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6e37c2ad35757545a947b87e6b388d03e486a509\classes.dex" />
+        sha1="69e74a8b1cbf5b8ee0fc0cca6bab1ac6c45efef8">
+        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e2b53cd85f0f0df2ae6d8120e4d1cf77da24a660\classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -39,20 +39,11 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_f5c5a01829feabd9edb134cfc1cae788d6dcc4c0\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="36e149a4f5ab22a3e9a36eb2ffbba5a79d1a7fc9">
+        sha1="751cddfb113ab0096caa72a30d64566d29bc7643">
         <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_f00fb9f2027424e55b594fd9655ac61ff269d266\classes.dex" />
     </item>
     <item
@@ -63,6 +54,60 @@
         revision="25.0.2"
         sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
         <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8300de706ddabb2fe9e60d8f3527ab4ed1d805c8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ilsa\.android\build-cache\25e5127f40bcb8a8ba8bc2730d7c7abf6564137f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="900a290779cdb4eb2e63b6f7806fd9f30ce4f60d">
+        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_08de2f7817154cb3a42a15409ffe737b0fd8c81a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ilsa\.android\build-cache\50e07df91d72ca1dc4f4a11ce10cdb88abdde767\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7979972576b6dbb1688052e42e5199abb54f81ba">
+        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bd7f4c66b096a14bf1f6b34ad40c2eb043ebc24e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ilsa\.android\build-cache\b60d7d4d81cbf949676bfc2a3fb60c095743641b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6e37c2ad35757545a947b87e6b388d03e486a509\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ilsa\.android\build-cache\f101755cf61a8489c735ef3d863c36e3ec707e4f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0c6924cbba8248329a8c58ead6a380efe7eee76e">
+        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_24abe836b63f452baf2a7badb4e92905a64a9b26\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ilsa\.android\build-cache\72fa646822a1414cf72fc8a37686020d62955b35\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3f0a85e6000998ac322ddd50750e8cf91601a84b">
+        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6d74d3889510226df15fea15f9fc3cbd5097d054\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="C:\Users\Ilsa\AndroidStudioProjects\AD340App\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_f5c5a01829feabd9edb134cfc1cae788d6dcc4c0\classes.dex" />
     </item>
 
 </items>

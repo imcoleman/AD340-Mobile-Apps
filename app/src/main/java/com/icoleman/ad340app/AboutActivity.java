@@ -86,6 +86,16 @@ public class AboutActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
+            case R.id.menu_map:
+                /** Called when the user selects "location" from menu */
+                try {
+                    Intent intent = new Intent(this, MyLocationActivity.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Log.d(TAG, "getMap()", e);
+                }
+                return true;
+
             case R.id.menu_contacts:
                 /** Called when the user selects "contacts" from menu */
                 try {

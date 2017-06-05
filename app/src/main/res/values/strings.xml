@@ -26,10 +26,22 @@
                                     talexi2001@gmail.com
     </string>
     <string name="settings">settings</string>
+    <string name="map">map</string>
     <string name="about">about</string>
     <string name="contacts">contacts</string>
     <string name="search">search</string>
     <string name="dialog_msg">Please select an option below:</string>
     <string name="dialog_title">Create New List</string>
     <string name="search_hint">Search</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_my_location">Map</string>
+    <string name="title_activity_fetch_address_intent_service">FetchAddressIntentService</string>
+    <string name="label_latitude">Latitude:     </string>
+    <string name="label_longitude">Longitude:   </string>
+    <string name="label_location">Location:     </string>
+    <string name="no_location_data">No Location Data</string>
+    <string name="service_not_available">Service unavailable</string>
+    <string name="address_found">Address found</string>
+    <string name="no_address_found">No address found</string>
+    <string name="invalid_lat_long_used">Invalid Lat/Long</string>
 </resources>
